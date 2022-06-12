@@ -4,60 +4,31 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Episode 3: Lists and Computed Properties</title>
+    <title>Episode 4: Your First Custom Vue Component</title>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="h-screen grid place-items-center">
     <div id="app">
-      <section
-      v-show="inProgressAssignments.length">
-        <h2 class="font-bold mb-2">In progress</h2>
-        <ul>
-          <li 
-            v-for="assignment in inProgressAssignments" 
-            :key="assignment.id">
-            <label>{{assignment.name}}</label>
-            <input type="checkbox" v-model="assignment.completed" />
-          </li>
-
-          <li></li>
-        </ul>
-      </section>
-      <section 
-      v-show="completedAssignments.length"
-      class="mt-12">
-        <h2 class="font-bold mb-2">Completed</h2>
-        <ul>
-          <li 
-          v-for="assignment in completedAssignments" 
-          :key="assignment.id">
-            <label>{{assignment.name}}</label>
-            <input type="checkbox" v-model="assignment.completed" />
-          </li>
-        </ul>
-      </section>
+      <app-button>Hello</app-button>
+      <app-button>Hola panas</app-button>
     </div>
     <script>
       let app = {
-        data() {
+        components: {
+          'app-button': {
+            template:`
+            <button class="bg-slate-500 hover:bg-slate-800 border rounded px-5 py-2 text-white disabled:cursor-not-allowed" :disabled="processing"> 
+              <slot /> 
+            </button>`,
+            data(){
           return {
-            assignments: [
-              { id: 1, name: "Finish project", completed: false },
-              { id: 2, name: "Read chapter 4", completed: false },
-              { id: 3, name: "Turn in homework", completed: false },
-            ],
+            processing: true
+          };
           }
-        },
-        computed: {
-          completedAssignments() {
-            return this.assignments.filter(a => a.completed)
-          },
-          inProgressAssignments() {
-            return this.assignments.filter(a => !a.completed)
-          },
-        }
+        }}
       };
+      
       Vue.createApp(app).mount("#app");
     </script>
   </body>
