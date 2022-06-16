@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Episode 4: Your First Custom Vue Component</title>
+    <title>Episode 5: One Vue Component Per File</title>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
@@ -13,20 +13,12 @@
       <app-button>Hello</app-button>
       <app-button>Hola panas</app-button>
     </div>
-    <script>
+    <script type="module">
+      import AppButton from "./js/components/AppButton.js"
       let app = {
         components: {
-          'app-button': {
-            template:`
-            <button class="bg-slate-500 hover:bg-slate-800 border rounded px-5 py-2 text-white disabled:cursor-not-allowed" :disabled="processing"> 
-              <slot /> 
-            </button>`,
-            data(){
-          return {
-            processing: true
-          };
-          }
-        }}
+          'app-button': AppButton
+        }
       };
       
       Vue.createApp(app).mount("#app");
