@@ -4,22 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Episode 5: One Vue Component Per File</title>
+    <title>Episode 6: Component Props</title>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes spinner {
+          to {transform: rotate(360deg);}
+      }
+
+      .is-loading { color: transparent; }
+
+      .is-loading:before {
+          content: '';
+          box-sizing: border-box;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 20px;
+          height: 20px;
+          margin-top: -10px;
+          margin-left: -10px;
+          border-radius: 50%;
+          border: 2px solid #ccc;
+          border-top-color: #000;
+          animation: spinner .6s linear infinite;
+      }
+  </style>
   </head>
   <body class="h-screen grid place-items-center">
-    <div id="app">
-      <app-button>Hello</app-button>
-      <app-button>Hola panas</app-button>
+    <div id="app" class="gap-2">
+      <app-button :processing="true">Hola panas</app-button>
     </div>
     <script type="module">
-      import AppButton from "./js/components/AppButton.js"
-      let app = {
-        components: {
-          'app-button': AppButton
-        }
-      };
+      import App from "/js/components/App.js"
+      let app = App;
       
       Vue.createApp(app).mount("#app");
     </script>
