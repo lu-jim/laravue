@@ -7,7 +7,7 @@ export default {
   <section v-show="assignments.length">
     <h2 class="font-bold mb-2">{{ title }}</h2>
 
-    <ul>
+    <ul class="border border-4 border-slate-600 divide-y divide-y-2 divide-slate-600">
         <Assignment v-for="assignment in assignments" 
         :key="assignment.id"
         :assignment="assignment"
