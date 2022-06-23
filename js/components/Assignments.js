@@ -1,12 +1,15 @@
 import AssignmentList from "./AssignmentList.js"
+import NewAssignment from "./NewAssignment.js"
 
 export default {
-  components: { AssignmentList },
+  components: { AssignmentList, NewAssignment },
   template:
    `
    <section class="space-y-6">
-    <assignment-list :assignments="filters.inProgress" title="In Progress"> </assignment-list>
+  <assignment-list :assignments="filters.inProgress" title="In Progress"> </assignment-list>
     <assignment-list :assignments="filters.completed" title="Completed"> </assignment-list>
+  
+    <newAssignment @add="add"></newAssignment>
    </section>
   
   `,
@@ -28,5 +31,15 @@ export default {
         completed:  this.assignments.filter(a => a.completed)
       }
     }
-  }
+  },
+    methods: {
+      add(name) {
+        this.assignments.push({
+          id: this.assignments.length + 1,
+          name: name,
+          completed: false,
+        });
+      }
+    }
+
 }
