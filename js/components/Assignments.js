@@ -1,20 +1,15 @@
 import AssignmentList from "./AssignmentList.js"
+import NewAssignment from "./NewAssignment.js"
 
 export default {
-  components: { AssignmentList },
+  components: { AssignmentList, NewAssignment },
   template:
    `
    <section class="space-y-6">
-    <assignment-list :assignments="filters.inProgress" title="In Progress"> </assignment-list>
+  <assignment-list :assignments="filters.inProgress" title="In Progress"> </assignment-list>
     <assignment-list :assignments="filters.completed" title="Completed"> </assignment-list>
-    
-    <form @submit.prevent="add">
-      <div class="border border-slate-400 border-2 text-slate-800">
-      <input v-model="newAssignment" placeholder="New assignment..." class="p-2" />
-      <button type="submit" class="bg-white p-2 border-l border-l-2">Add</button>
-      </div>
-      
-    </form>
+  
+    <newAssignment @add="add"></newAssignment>
    </section>
   
   `,
@@ -26,8 +21,6 @@ export default {
         { id: 2, name: "Read chapter 4", completed: false },
         { id: 3, name: "Turn in homework", completed: false },
       ],
-
-      newAssignment: '';
     }
   },
 
@@ -39,11 +32,14 @@ export default {
       }
     }
   },
-  
-  methods: {
-      add() {
-        this.assignments.push({ id: this.assignments.length + 1, name: this.newAssignment, completed: false });
-        this.newAssignment = '';
+    methods: {
+      add(name) {
+        this.assignments.push({
+          id: this.assignments.length + 1,
+          name: name,
+          completed: false,
+        });
       }
     }
+
 }
